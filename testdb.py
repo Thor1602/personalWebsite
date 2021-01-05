@@ -1,4 +1,4 @@
 import dbHelper
 
-user = dbHelper.User('user', 'password', True)
-user.check_connection()
+user1 = dbHelper.User('thorben1602', "WPvX4NNn2rRTg56QW52V", True)
+print(user1.check_user())

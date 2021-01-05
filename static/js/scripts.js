@@ -66,4 +66,19 @@
     });
   
   })(jQuery); // End of use strict
+
+  function add() {
+  var new_chq_no = parseInt($('#total_chq').val()) + 1;
+  var new_input = "<div class='form-group' id='blogParagraph" + new_chq_no +"'><label for='inputParagraphBlog'>Paragraph " + new_chq_no + "</label><textarea class='form-control' id='inputParagraphBlog" + new_chq_no + "'></textarea></div>";
+  $('#new_paragraph').append(new_input);
+  $('#total_chq').val(new_chq_no);
+}
+
+function remove() {
+  var last_chq_no = $('#total_chq').val();
+  if (last_chq_no > 1) {
+    $('#blogParagraph' + last_chq_no).remove();
+    $('#total_chq').val(last_chq_no - 1);
+  }
+}
   

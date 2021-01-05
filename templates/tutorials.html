@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="Thorben Dhaenens" />
-        <title>Admin Login</title>
+        <title>Main Page</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="static/assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -15,8 +15,6 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="static/css/styles.css" rel="stylesheet" />
-        <link href="static/css/login.css" rel="stylesheet" />
-
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -38,38 +36,26 @@
                 </div>
             </div>
         </nav>
-        <section class="page-section mt-lg-5">
-            <div class="container">
-                <div class="d-flex justify-content-center h-100">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Admin Sign In</h3>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST">
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" name="username" placeholder="admin username">
-                                </div>
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                    </div>
-                                    <input type="password" class="form-control" name="password" placeholder="admin password">
-                                </div>
-                                <div class="row align-items-center remember">
-                                    <input type="checkbox" name="rememberMe">Remember Me
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Login" class="btn float-right login_btn">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <img class="masthead-avatar mb-5" src="static/assets/img/avatar.png" alt="" />
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Code in 10 steps</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="divider-custom-line"></div>
                 </div>
+                <!-- Masthead Subheading-->
+                <p class="masthead-subheading font-weight-light mb-0">Thorben Dhaenens</p>
             </div>
+        </header>
+
+        <section class="page-section">
+
         </section>
         <!-- Footer-->
         <footer class="footer text-center">
