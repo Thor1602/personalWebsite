@@ -1,20 +1,26 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, url_for, render_template, request, redirect, session, flash
+from flask import Flask, url_for, render_template, request, redirect, session, flash, jsonify
 import dbHelper
 import os
 from werkzeug.utils import secure_filename
+from flask_helper import *
 
-UPLOAD_FOLDER = 'static/assets/img/'
+UPLOAD_FOLDER = 'static/assets/img/user_pictures/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(import_name=__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
 @app.before_request
 def make_session_permanent():
     session.permanent = True
+
+@app.route('/adminblog')
+def adminblog():
+    result = ajax_form_to_dict(request.args.get('admin_blog'))
+    print(result)
+    return request.args.get('admin_blog')
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -52,21 +58,26 @@ def admin():
         return redirect(url_for('login'))
     else:
         if request.method == 'POST':
-            # check if the post request has the file part
             print(request.form)
+            err_files = []
+            filename = ''
+            # check if the post request has the file part
             if 'blogFile' not in request.files:
                 flash('No file part')
                 return redirect(request.url)
-            file = request.files['blogFile']
+            files = request.files.getlist('blogFile')
             # if user does not select file, browser also
             # submit an empty part without filename
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], "blog_upload_" + filename))
-                return redirect(url_for('admin', filename=filename))
+            for file in files:
+                # if file.filename == '':
+                #     flash('No selected file')
+                #     return redirect(request.url)
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], "blog_upload_" + filename))
+                else:
+                    err_files.append(file.filename)
+            return render_template("admin.html", filename=filename, err_files=err_files)
         return render_template("admin.html")
 
 @app.route('/login', methods=['GET', 'POST'])

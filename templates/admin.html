@@ -15,8 +15,11 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="static/css/styles.css" rel="stylesheet" />
+        <!--notifyBar-->
+        <link rel="stylesheet" href="static/css/jquery.notifyBar.css">
+
     </head>
-    <body id="page-top">
+    <body id="page-top" onload="myFunction()">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
@@ -41,6 +44,7 @@
         <section class="page-section portfolio">
             <div class="container">
                 <div class="row justify-content-center">
+                        <p>{{ err_files }}</p>
                     <!-- Blog entry -->
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#BlogModal">
@@ -97,38 +101,43 @@
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-desktop"></i></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-blog"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <form method="POST" id="blog"  enctype="multipart/form-data">
+                                    <form name="blog_admin" id="blog_admin" enctype="multipart/form-data">
                                           <div class="form-group">
                                             <label for="inputTitleBlog">Title</label>
-                                            <input type="text" class="form-control form-control-lg" id="inputTitleBlog" >
+                                            <input type="text" class="form-control form-control-lg" name="inputTitleBlog" id="inputTitleBlog" >
                                           </div>
                                           <div class="form-group">
                                             <label for="inputDescriptionBlog">Description</label>
-                                            <input type="text" class="form-control" id="inputDescriptionBlog" >
+                                            <input type="text" class="form-control" name="inputDescriptionBlog" id="inputDescriptionBlog" >
                                           </div>
 
                                           <div class="form-group" id="blogParagraph">
                                             <label for="inputParagraphBlog">Paragraph 1</label>
-                                              <textarea class="form-control" id="inputParagraphBlog"></textarea>
+                                              <textarea class="form-control" name="inputParagraphBlog" id="inputParagraphBlog"></textarea>
                                           </div>
                                           <input type="hidden" id="total_chq" value="1">
                                           <div id="new_paragraph"></div>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary" type="button" id="addBlogParagraph" onclick="add()">Add Paragraph</button>
-                                        <button class="btn btn-primary" type="button" id="removeBlogParagraph" onclick="remove()">Remove Paragraph</button>
-                                    </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="button" id="addBlogParagraph" onclick="add()">Add Paragraph</button>
+                                            <button class="btn btn-primary" type="button" id="removeBlogParagraph" onclick="remove()">Remove Paragraph</button>
+                                        </div>
 
-                                    <div class="custom-file mt-3 mb-3">
-                                        <input type="file" class="custom-file-input" name="blogFile" id="validatedCustomFile">
-                                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                        <div class="invalid-feedback">Invalid file</div>
-                                      </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary btn-lg" type="submit" id="postBlog">PUBLISH</button>
-                                    </div>
+                                        <div class="custom-file mt-3 mb-3">
+                                            <input type="file" name="blogFile" id="blogFile" multiple size="50" onchange="myFunction()">
+    <!--                                        <input type="file" class="custom-file-input" name="blogFile" id="blogFiles" multiple size="50" onchange="myFunction()">-->
+                                            <label class="custom-file-label" for="blogFile">Choose file...</label>
+                                            <div class="invalid-feedback">Invalid file</div>
+                                        </div>
+                                            <p id="demo"></p>
+                                        <div class="form-group">
+                                            <button hidden type="button"></button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="blog_publish" id="blog_publish">PUBLISH</button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="blog_draft" id="blog_draft">DRAFT</button>
+                                        </div>
+                                        <span id="result"></span>
                                     </form>
                                     <div class="form-group">
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">
@@ -136,7 +145,6 @@
                                             Close Window
                                         </button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -145,7 +153,7 @@
             </div>
         </div>
         <!-- Tutorial Modal-->
-        <div class="portfolio-modal modal fade" id="TutorialModal" tabindex="-1" role="dialog" aria-labelledby="BlogModal" aria-hidden="true">
+        <div class="portfolio-modal modal fade" id="TutorialModal" tabindex="-1" role="dialog" aria-labelledby="TutorialModal" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -156,21 +164,125 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label">New Project</h2>
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label">New Tutorial entry</h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-fire-alt"></i></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-desktop"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/cabin.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
+                                    <form name="tutorial_admin" id="tutorial_admin" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                            <label for="inputTitleBlog">Title</label>
+                                            <input type="text" class="form-control form-control-lg" name="inputTitleTutorial" id="inputTitleTutorial" >
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="inputDescriptionBlog">Description</label>
+                                            <input type="text" class="form-control" name="inputDescriptionTutorial" id="inputDescriptionTutorial" >
+                                          </div>
+
+                                          <div class="form-group" id="TutorialParagraph1">
+                                            <label for="inputParagraphTutorial1">Paragraph 1</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial1" id="inputParagraphTutorial1"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode1">
+                                            <label for="inputParagraphTutorial1">Code 1</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode1" id="inputParagraphTutorialCode1"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph2">
+                                            <label for="inputParagraphTutorial1">Paragraph 2</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial2" id="inputParagraphTutorial2"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode2">
+                                            <label for="inputParagraphTutorial1">Code 2</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode2" id="inputParagraphTutorialCode2"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph3">
+                                            <label for="inputParagraphTutorial1">Paragraph 3</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial3" id="inputParagraphTutorial3"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode3">
+                                            <label for="inputParagraphTutorial1">Code 3</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode3" id="inputParagraphTutorialCode3"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph4">
+                                            <label for="inputParagraphTutorial1">Paragraph 4</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial4" id="inputParagraphTutorial4"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode4">
+                                            <label for="inputParagraphTutorial1">Code 4</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode4" id="inputParagraphTutorialCode4"></textarea>
+                                          </div>
+                                        <div class="form-group" id="TutorialParagraph5">
+                                            <label for="inputParagraphTutorial1">Paragraph 5</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial5" id="inputParagraphTutorial5"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode5">
+                                            <label for="inputParagraphTutorial1">Code 5</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode5" id="inputParagraphTutorialCode5"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph6">
+                                            <label for="inputParagraphTutorial1">Paragraph 6</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial6" id="inputParagraphTutorial6"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode6">
+                                            <label for="inputParagraphTutorial1">Code 6</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode6" id="inputParagraphTutorialCode6"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph7">
+                                            <label for="inputParagraphTutorial1">Paragraph 7</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial7" id="inputParagraphTutorial7"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode7">
+                                            <label for="inputParagraphTutorial1">Code 7</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode7" id="inputParagraphTutorialCode7"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph8">
+                                            <label for="inputParagraphTutorial1">Paragraph 8</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial8" id="inputParagraphTutorial8"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode8">
+                                            <label for="inputParagraphTutorial1">Code 8</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode8" id="inputParagraphTutorialCode8"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialParagraph9">
+                                            <label for="inputParagraphTutorial1">Paragraph 9</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial9" id="inputParagraphTutorial9"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode9">
+                                            <label for="inputParagraphTutorial1">Code 9</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode9" id="inputParagraphTutorialCode9"></textarea>
+                                          </div>
+                                        <div class="form-group" id="TutorialParagraph10">
+                                            <label for="inputParagraphTutorial1">Paragraph 10</label>
+                                              <textarea class="form-control" name="inputParagraphTutorial10" id="inputParagraphTutorial10"></textarea>
+                                          </div>
+                                          <div class="form-group" id="TutorialCode10">
+                                            <label for="inputParagraphTutorial1">Code 10</label>
+                                              <textarea class="form-control" name="inputParagraphTutorialCode10" id="inputParagraphTutorialCode10"></textarea>
+                                          </div>
+
+                                        <div class="custom-file mt-3 mb-3">
+                                            <input type="file" name="blogFile" id="tutorialFile" multiple size="50" onchange="myFunction()">
+    <!--                                        <input type="file" class="custom-file-input" name="blogFile" id="blogFiles" multiple size="50" onchange="myFunction()">-->
+                                            <label class="custom-file-label" for="blogFile">Choose file...</label>
+                                            <div class="invalid-feedback">Invalid file</div>
+                                        </div>
+                                            <p id="demo2"></p>
+                                        <div class="form-group">
+                                            <button hidden type="button"></button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="tutorial_publish" id="tutorial_publish">PUBLISH</button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="tutorial_draft" id="tutorial_draft">DRAFT</button>
+                                        </div>
+                                        <span id="result2"></span>
+                                    </form>
+                                    <div class="form-group">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <i class="fas fa-times fa-fw"></i>
+                                            Close Window
+                                        </button>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -189,22 +301,7 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal2Label">New tutorial</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-keyboard"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/cabin.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -223,22 +320,7 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal3Label">Settings</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-wrench"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/cabin.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -257,10 +339,41 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
         <!-- Contact form JS-->
         <script src="static/assets/mail/jqBootstrapValidation.js"></script>
         <script src="static/assets/mail/contact_me.js"></script>
         <!-- Core theme JS-->
         <script src="static/js/scripts.js"></script>
+        <!-- notification popup at the top JS-->
+        <script src="static/js/jquery.notifyBar.js"></script>
+        <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $(document).ready(function(){
+            $(function() {
+                $('#blog_draft').bind('click', function() {
+                  $.notifyBar();
+                  $.getJSON($SCRIPT_ROOT + '/adminblog', {
+                    admin_blog: $('#blog_admin').serialize(),
+                  }, function(data) {
+                    $("#result").text(data.result);
+                  });
+                  return false;
+                });
+            });
+
+            $(function() {
+                $('#blog_publish').bind('click', function() {
+                  $.notifyBar();
+                  $.getJSON($SCRIPT_ROOT + '/adminblog', {
+                    admin_blog: $('#blog_admin').serialize(),
+                  }, function(data) {
+                    $("#result").text(data.result);
+                  });
+                  return false;
+                });
+            });
+        });
+        </script>
     </body>
 </html>
