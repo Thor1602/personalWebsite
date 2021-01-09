@@ -67,7 +67,7 @@
 
   })(jQuery); // End of use strict
 //functions to add extra paragraphs to blog form
-function add() {
+function addParagraphToBlog() {
   var new_chq_no = parseInt($('#total_chq').val()) + 1;
   var new_input = "<div class='form-group' id='blogParagraph" + new_chq_no +"'><label for='inputParagraphBlog'>Paragraph " + new_chq_no + "</label><textarea class='form-control' name='inputParagraphBlog" + new_chq_no + "' id='inputParagraphBlog" + new_chq_no + "'></textarea></div>";
   if (new_chq_no <= 12) {
@@ -75,20 +75,43 @@ function add() {
     $('#total_chq').val(new_chq_no);
     }
   else {
-    $('#new_paragraph').append("<p> Max 12 paragraphs are allowed</p>");
+    $.notifyBar({ cssClass: "error", html: "Error: maximum 12 paragraphs are allowed" });
     }
   }
 
 //functions to remove extra paragraphs from blog form
-function remove() {
+function removeParagraphToBlog() {
   var last_chq_no = $('#total_chq').val();
   if (last_chq_no > 1) {
     $('#blogParagraph' + last_chq_no).remove();
     $('#total_chq').val(last_chq_no - 1);
   }
 }
+//functions to add extra paragraphs from project form
+function addParagraphToProject() {
+  var new_chq_no = parseInt($('#total_chq1').val()) + 1;
+  var new_input = "<div class='form-group' id='projectParagraph" + new_chq_no +"'><label for='inputParagraphProject'>Paragraph " + new_chq_no + "</label><textarea class='form-control' name='inputParagraphProject" + new_chq_no + "' id='inputParagraphProject" + new_chq_no + "'></textarea></div>";
+  if (new_chq_no <= 12) {
+    $('#new_paragraph1').append(new_input);
+    $('#total_chq1').val(new_chq_no);
+    }
+  else {
+    $.notifyBar({ cssClass: "error", html: "Error: maximum 12 paragraphs are allowed" });
+    }
+  }
 
-//functions to add extra paragraphs to blog form
+//functions to remove extra paragraphs from project form
+function removeParagraphToProject() {
+  var last_chq_no = $('#total_chq1').val();
+  if (last_chq_no > 1) {
+    $('#projectParagraph' + last_chq_no).remove();
+    $('#total_chq1').val(last_chq_no - 1);
+  }
+}
+
+
+
+//function to display the files that are selected in a form
 function myFunction(){
   var x = document.getElementById("blogFile");
   var txt = "";
@@ -125,7 +148,7 @@ function myFunction(){
       txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
     }
   }
-  document.getElementById("demo").innerHTML = txt;
+  document.getElementsByClassName("fileInfo").innerHTML = txt;
 }
     //$("#common").click(function () {
     //$.notifyBar();

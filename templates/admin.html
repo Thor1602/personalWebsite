@@ -44,9 +44,8 @@
         <section class="page-section portfolio">
             <div class="container">
                 <div class="row justify-content-center">
-                        <p>{{ err_files }}</p>
                     <!-- Blog entry -->
-                    <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="col-md-6 col-lg-6 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#BlogModal">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><h1>New blog entry</h1></div>
@@ -54,8 +53,17 @@
                             <img class="img-fluid" src="static/assets/img/blog_admin.png" alt="" />
                         </div>
                     </div>
+                    <!-- Blog entries -->
+                    <div class="col-md-6 col-lg-6 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#AllBlogModal">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><h1>All blogs</h1></div>
+                            </div>
+                            <img class="img-fluid" src="static/assets/img/blog_entries_admin.png" alt="" />
+                        </div>
+                    </div>
                     <!-- Tutorial entry -->
-                    <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="col-md-6 col-lg-6 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#TutorialModal">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><h1>New tutorial</h1></div>
@@ -63,8 +71,17 @@
                             <img class="img-fluid" src="static/assets/img/project_admin.png" alt="" />
                         </div>
                     </div>
+                    <!-- Tutorial entries -->
+                    <div class="col-md-6 col-lg-6 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#AllTutorialsModal">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><h1>All tutorials</h1></div>
+                            </div>
+                            <img class="img-fluid" src="static/assets/img/10steps_entries_admin.png" alt="" />
+                        </div>
+                    </div>
                     <!-- Project entry -->
-                    <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="col-md-6 col-lg-6 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#ProjectModal">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><h1>New project</h1></div>
@@ -72,8 +89,17 @@
                             <img class="img-fluid" src="static/assets/img/10steps_admin.png" alt="" />
                         </div>
                     </div>
+                    <!-- Project entries -->
+                    <div class="col-md-6 col-lg-6 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#AllProjectModal">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><h1>All projects</h1></div>
+                            </div>
+                            <img class="img-fluid" src="static/assets/img/project_entries_admin.png" alt="" />
+                        </div>
+                    </div>
                     <!-- Settings entry -->
-                    <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="col-md-6 col-lg-6 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#SettingsModal">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><h1>Settings</h1></div>
@@ -81,6 +107,16 @@
                             <img class="img-fluid" src="static/assets/img/settings_picture.png" alt="" />
                         </div>
                     </div>
+                    <!-- Media upload -->
+                    <div class="col-md-6 col-lg-6 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#MediaUploadModal">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><h1>Media upload</h1></div>
+                            </div>
+                            <img class="img-fluid" src="static/assets/img/media_upload_admin.png" alt="" />
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -107,7 +143,7 @@
                                     <form name="blog_admin" id="blog_admin" enctype="multipart/form-data">
                                           <div class="form-group">
                                             <label for="inputTitleBlog">Title</label>
-                                            <input type="text" class="form-control form-control-lg" name="inputTitleBlog" id="inputTitleBlog" >
+                                            <input type="text" class="form-control form-control-lg title" name="inputTitleBlog" id="inputTitleBlog" >
                                           </div>
                                           <div class="form-group">
                                             <label for="inputDescriptionBlog">Description</label>
@@ -115,27 +151,19 @@
                                           </div>
 
                                           <div class="form-group" id="blogParagraph">
-                                            <label for="inputParagraphBlog">Paragraph 1</label>
-                                              <textarea class="form-control" name="inputParagraphBlog" id="inputParagraphBlog"></textarea>
+                                            <label for="inputParagraphBlog1">Paragraph 1</label>
+                                              <textarea class="form-control" name="inputParagraphBlog1" id="inputParagraphBlog1"></textarea>
                                           </div>
                                           <input type="hidden" id="total_chq" value="1">
                                           <div id="new_paragraph"></div>
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="button" id="addBlogParagraph" onclick="add()">Add Paragraph</button>
-                                            <button class="btn btn-primary" type="button" id="removeBlogParagraph" onclick="remove()">Remove Paragraph</button>
+                                            <button class="btn btn-primary" type="button" id="addBlogParagraph" onclick="addParagraphToBlog()">Add Paragraph</button>
+                                            <button class="btn btn-primary" type="button" id="removeBlogParagraph" onclick="removeParagraphToBlog()">Remove Paragraph</button>
                                         </div>
-
-                                        <div class="custom-file mt-3 mb-3">
-                                            <input type="file" name="blogFile" id="blogFile" multiple size="50" onchange="myFunction()">
-    <!--                                        <input type="file" class="custom-file-input" name="blogFile" id="blogFiles" multiple size="50" onchange="myFunction()">-->
-                                            <label class="custom-file-label" for="blogFile">Choose file...</label>
-                                            <div class="invalid-feedback">Invalid file</div>
-                                        </div>
-                                            <p id="demo"></p>
                                         <div class="form-group">
                                             <button hidden type="button"></button>
                                             <button class="btn btn-primary btn-lg" type="button" name="blog_publish" id="blog_publish">PUBLISH</button>
-                                            <button class="btn btn-primary btn-lg" type="button" name="blog_draft" id="blog_draft">DRAFT</button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="blog_draft" id="blog_draft" value="blogDraftBtn">DRAFT</button>
                                         </div>
                                         <span id="result"></span>
                                     </form>
@@ -174,7 +202,7 @@
                                     <form name="tutorial_admin" id="tutorial_admin" enctype="multipart/form-data">
                                           <div class="form-group">
                                             <label for="inputTitleBlog">Title</label>
-                                            <input type="text" class="form-control form-control-lg" name="inputTitleTutorial" id="inputTitleTutorial" >
+                                            <input type="text" class="form-control form-control-lg title" name="inputTitleTutorial" id="inputTitleTutorial" >
                                           </div>
                                           <div class="form-group">
                                             <label for="inputDescriptionBlog">Description</label>
@@ -187,7 +215,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode1">
                                             <label for="inputParagraphTutorial1">Code 1</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode1" id="inputParagraphTutorialCode1"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode1" id="inputParagraphTutorialCode1"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph2">
                                             <label for="inputParagraphTutorial1">Paragraph 2</label>
@@ -195,7 +223,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode2">
                                             <label for="inputParagraphTutorial1">Code 2</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode2" id="inputParagraphTutorialCode2"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode2" id="inputParagraphTutorialCode2"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph3">
                                             <label for="inputParagraphTutorial1">Paragraph 3</label>
@@ -203,7 +231,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode3">
                                             <label for="inputParagraphTutorial1">Code 3</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode3" id="inputParagraphTutorialCode3"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode3" id="inputParagraphTutorialCode3"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph4">
                                             <label for="inputParagraphTutorial1">Paragraph 4</label>
@@ -211,7 +239,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode4">
                                             <label for="inputParagraphTutorial1">Code 4</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode4" id="inputParagraphTutorialCode4"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode4" id="inputParagraphTutorialCode4"></textarea>
                                           </div>
                                         <div class="form-group" id="TutorialParagraph5">
                                             <label for="inputParagraphTutorial1">Paragraph 5</label>
@@ -219,7 +247,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode5">
                                             <label for="inputParagraphTutorial1">Code 5</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode5" id="inputParagraphTutorialCode5"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode5" id="inputParagraphTutorialCode5"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph6">
                                             <label for="inputParagraphTutorial1">Paragraph 6</label>
@@ -227,7 +255,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode6">
                                             <label for="inputParagraphTutorial1">Code 6</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode6" id="inputParagraphTutorialCode6"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode6" id="inputParagraphTutorialCode6"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph7">
                                             <label for="inputParagraphTutorial1">Paragraph 7</label>
@@ -235,7 +263,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode7">
                                             <label for="inputParagraphTutorial1">Code 7</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode7" id="inputParagraphTutorialCode7"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode7" id="inputParagraphTutorialCode7"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph8">
                                             <label for="inputParagraphTutorial1">Paragraph 8</label>
@@ -243,7 +271,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode8">
                                             <label for="inputParagraphTutorial1">Code 8</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode8" id="inputParagraphTutorialCode8"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode8" id="inputParagraphTutorialCode8"></textarea>
                                           </div>
                                           <div class="form-group" id="TutorialParagraph9">
                                             <label for="inputParagraphTutorial1">Paragraph 9</label>
@@ -251,7 +279,7 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode9">
                                             <label for="inputParagraphTutorial1">Code 9</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode9" id="inputParagraphTutorialCode9"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode9" id="inputParagraphTutorialCode9"></textarea>
                                           </div>
                                         <div class="form-group" id="TutorialParagraph10">
                                             <label for="inputParagraphTutorial1">Paragraph 10</label>
@@ -259,22 +287,15 @@
                                           </div>
                                           <div class="form-group" id="TutorialCode10">
                                             <label for="inputParagraphTutorial1">Code 10</label>
-                                              <textarea class="form-control" name="inputParagraphTutorialCode10" id="inputParagraphTutorialCode10"></textarea>
+                                              <textarea class="form-control tutorial-code" name="inputParagraphTutorialCode10" id="inputParagraphTutorialCode10"></textarea>
                                           </div>
-
-                                        <div class="custom-file mt-3 mb-3">
-                                            <input type="file" name="blogFile" id="tutorialFile" multiple size="50" onchange="myFunction()">
-    <!--                                        <input type="file" class="custom-file-input" name="blogFile" id="blogFiles" multiple size="50" onchange="myFunction()">-->
-                                            <label class="custom-file-label" for="blogFile">Choose file...</label>
-                                            <div class="invalid-feedback">Invalid file</div>
-                                        </div>
-                                            <p id="demo2"></p>
+<!--                                            <p id="demo2"></p>-->
                                         <div class="form-group">
                                             <button hidden type="button"></button>
                                             <button class="btn btn-primary btn-lg" type="button" name="tutorial_publish" id="tutorial_publish">PUBLISH</button>
                                             <button class="btn btn-primary btn-lg" type="button" name="tutorial_draft" id="tutorial_draft">DRAFT</button>
                                         </div>
-                                        <span id="result2"></span>
+<!--                                        <span id="result2"></span>-->
                                     </form>
                                     <div class="form-group">
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">
@@ -301,7 +322,47 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
+                                     <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal2Label">New project entry</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-laptop-house"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <form name="project_admin" id="project_admin" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                            <label for="inputTitleProject">Title</label>
+                                            <input type="text" class="form-control form-control-lg title" name="inputTitleProject" id="inputTitleProject" >
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="inputDescriptionproject">Description</label>
+                                            <input type="text" class="form-control" name="inputDescriptionProject" id="inputDescriptionProject" >
+                                          </div>
 
+                                          <div class="form-group" id="projectParagraph">
+                                            <label for="inputParagraphProject1">Paragraph 1</label>
+                                              <textarea class="form-control" name="inputParagraphProject1" id="inputParagraphProject1"></textarea>
+                                          </div>
+                                          <input type="hidden" id="total_chq1" value="1">
+                                          <div id="new_paragraph1"></div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="button" id="addProjectParagraph" onclick="addParagraphToProject()">Add Paragraph</button>
+                                            <button class="btn btn-primary" type="button" id="removeProjectParagraph" onclick="removeParagraphToProject()">Remove Paragraph</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button hidden type="button"></button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="project_publish" id="project_publish">PUBLISH</button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="project_draft" id="project_draft" >DRAFT</button>
+                                        </div>
+                                        <span id="result1"></span>
+                                    </form>
+                                    <div class="form-group">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <i class="fas fa-times fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -320,7 +381,79 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal3Label">New project entry</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-cogs"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <form name="project_admin" id="settings_admin" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                            <label for="websiteName">Change website name</label>
+                                            <input type="text" class="form-control form-control-lg title" name="websiteName" id="websiteName" >
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="changePassword">Change password</label>
+                                            <input type="password" class="form-control form-control-lg title" name="changePassword" id="changePassword" >
+                                          </div>
+                                        <div class="form-group">
+                                            <button hidden type="button"></button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="settings" id="settings">SAVE</button>
+                                        </div>
+                                    </form>
+                                    <div class="form-group">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <i class="fas fa-times fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Media Upload Modal -->
+        <div class="portfolio-modal modal fade" id="MediaUploadModal" tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal4Label">Media upload tool</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-file"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <form name="media_upload_admin" id="media_upload_admin" enctype="multipart/form-data">
+                                          <div class="custom-file mt-3 mb-3">
+                                            <input type="file" name="blogFile" id="blogFile" multiple size="50" onchange="myFunction()">
+    <!--                                        <input type="file" class="custom-file-input" name="blogFile" id="blogFiles" multiple size="50" onchange="myFunction()">-->
+                                            <label class="custom-file-label" for="blogFile">Choose file...</label>
+                                            <div class="invalid-feedback">Invalid file</div>
+                                        </div>
+                                        <p class="fileInfo"></p>
+                                        <div class="form-group">
+                                            <button hidden type="button"></button>
+                                            <button class="btn btn-primary btn-lg" type="submit" name="media_upload_admin_btn" id="media_upload_admin_btn" data-backdrop="static">UPLOAD</button>
+                                        </div>
+                                    </form>
+                                    <div class="form-group">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <i class="fas fa-times fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -348,30 +481,129 @@
         <!-- notification popup at the top JS-->
         <script src="static/js/jquery.notifyBar.js"></script>
         <script>
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         $(document).ready(function(){
-            $(function() {
-                $('#blog_draft').bind('click', function() {
-                  $.notifyBar();
-                  $.getJSON($SCRIPT_ROOT + '/adminblog', {
-                    admin_blog: $('#blog_admin').serialize(),
-                  }, function(data) {
-                    $("#result").text(data.result);
-                  });
-                  return false;
+            //send admin blog data to server as draft
+        	$('#blog_draft').on('click', function(event) {
+                $.ajax({
+                    data : $('#blog_admin').serialize() + "&blogDraftBtn=",
+                    type : 'POST',
+                    url : '/admin/blog',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
                 });
+                event.preventDefault();
+            });
+            //send admin blog data to server to publish
+            $('#blog_publish').on('click', function(event) {
+                $.ajax({
+                    data : $('#blog_admin').serialize() + "&blogPublishedBtn=",
+                    type : 'POST',
+                    url : '/admin/blog',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
+                });
+                event.preventDefault();
             });
 
-            $(function() {
-                $('#blog_publish').bind('click', function() {
-                  $.notifyBar();
-                  $.getJSON($SCRIPT_ROOT + '/adminblog', {
-                    admin_blog: $('#blog_admin').serialize(),
-                  }, function(data) {
-                    $("#result").text(data.result);
-                  });
-                  return false;
+            //send admin tutorial data to server as draft
+        	$('#tutorial_draft').on('click', function(event) {
+                $.ajax({
+                    data : $('#tutorial_admin').serialize() + "&tutorialDraftBtn=",
+                    type : 'POST',
+                    url : '/admin/tutorial',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
                 });
+                event.preventDefault();
+            });
+            //send admin tutorial data to server to publish
+            $('#tutorial_publish').on('click', function(event) {
+                $.ajax({
+                    data : $('#tutorial_admin').serialize() + "&tutorialPublishedBtn=",
+                    type : 'POST',
+                    url : '/admin/tutorial',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
+                });
+                event.preventDefault();
+            });
+
+            //send admin project data to server as draft
+        	$('#project_draft').on('click', function(event) {
+                $.ajax({
+                    data : $('#project_admin').serialize() + "&projectDraftBtn=",
+                    type : 'POST',
+                    url : '/admin/project',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
+                });
+                event.preventDefault();
+            });
+            //send admin project data to server to publish
+            $('#project_publish').on('click', function(event) {
+                $.ajax({
+                    data : $('#project_admin').serialize() + "&projectPublishedBtn=",
+                    type : 'POST',
+                    url : '/admin/project',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
+                });
+                event.preventDefault();
+            });
+
+            //send changed settings data to server
+        	$('#settings').on('click', function(event) {
+                $.ajax({
+                    data : $('#settings_admin').serialize() + "&settingsDraftBtn=",
+                    type : 'POST',
+                    url : '/admin/settings',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
+                });
+                event.preventDefault();
             });
         });
         </script>

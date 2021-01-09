@@ -4,6 +4,7 @@ import dbHelper
 import os
 from werkzeug.utils import secure_filename
 from flask_helper import *
+import json
 
 UPLOAD_FOLDER = 'static/assets/img/user_pictures/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -16,11 +17,50 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def make_session_permanent():
     session.permanent = True
 
-@app.route('/adminblog')
+@app.route('/admin/blog', methods=['GET', 'POST'])
 def adminblog():
-    result = ajax_form_to_dict(request.args.get('admin_blog'))
-    print(result)
-    return request.args.get('admin_blog')
+    if request.method == 'POST':
+        print(request.form)
+        # err_files = []
+        # filename = ''
+        # # check if the post request has the file part
+        # if 'blogFile' not in request.files:
+        #     flash('No file part')
+        #     return redirect(request.url)
+        # files = request.files.getlist('blogFile')
+        # # if user does not select file, browser also
+        # # submit an empty part without filename
+        # for file in files:
+        #     # if file.filename == '':
+        #     #     flash('No selected file')
+        #     #     return redirect(request.url)
+        #     if file and allowed_file(file.filename):
+        #         filename = secure_filename(file.filename)
+        #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], "blog_upload_" + filename))
+        #     else:
+        #         err_files.append(file.filename)
+        # print(request.form)
+    #result = ajax_form_to_dict(request.args.get('admin_blog'))
+    print(request.files.getlist('blogFile'))
+    return json.dumps({'the Moron key': 'the Moron value'})
+
+@app.route('/admin/tutorial', methods=['GET', 'POST'])
+def admintutorial():
+    if request.method == 'POST':
+        print(request.form)
+    return ""
+
+@app.route('/admin/project', methods=['GET', 'POST'])
+def adminproject():
+    if request.method == 'POST':
+        print(request.form)
+    return ""
+
+@app.route('/admin/settings', methods=['GET', 'POST'])
+def adminsettings():
+    if request.method == 'POST':
+        print(request.form)
+    return ""
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
