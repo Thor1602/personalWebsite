@@ -30,9 +30,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#10stepscode">Code in 10 steps</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#blog">Blog</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#portfolio">Portfolio</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#tutorials">Code in 10 steps</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#blogs">Blog</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#portfolios">Portfolio</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/#contact">Contact</a></li>
                     </ul>
@@ -140,7 +140,7 @@
                                         <div class="divider-custom-icon"><i class="fas fa-blog"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <form name="blog_admin" id="blog_admin" enctype="multipart/form-data">
+                                    <form method="POST" action="/admin/blog" name="blog_admin" id="blog_admin" enctype="multipart/form-data">
                                           <div class="form-group">
                                             <label for="inputTitleBlog">Title</label>
                                             <input type="text" class="form-control form-control-lg title" name="inputTitleBlog" id="inputTitleBlog" >
@@ -479,150 +479,53 @@
         <!-- notification popup at the top JS-->
         <script src="static/js/jquery.notifyBar.js"></script>
         <script>
-        //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        //If you have problems with rooting, try the following
+            //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            //$SCRIPT_ROOT + url (starting from the dir where the flask Python file is)
         $(document).ready(function(){
-            //send admin blog data to server as draft
-            function AjaxProcessing(eventBtn, data, eventBtnData, url, error, success) {
-                $(eventBtn).on('click', function(event) {
+            function AjaxProcessing(btn_id, data_id, url, dataBtn, success_message, error_message){
+                /*
+                    arguments explanation - this works well with Python Flask, other environments were not tested yet.
+                    btn_id: click this button to trigger the function (send form data through AJAX) => with #
+                    data_id: the id that is assigned in the <form> element (<form id="ChooseName">)
+                    url: the url of the server
+                    dataBtn: the name that the server will use to know which button is pressed (choose whatever name that suits you)
+                    success_message: shows a message if your form is submitted successfully
+                    error_message: same as success, but submitted unsuccessfully
+                */
+                $(btn_id).on('click', function(event) {
                     $.ajax({
-                        data : $(data).serialize() + "&" + eventBtnData + "=",
+                        data : $(data_id).serialize() + "&" + dataBtn + "=",
                         type : 'POST',
                         url : url,
                     })
                     .done(function(data) {
                         if (data.error) {
-                        $.notifyBar({ cssClass: "error", html: error });
+                        $.notifyBar({ cssClass: "error", html: error_message });
                         }
                         else {
-                        $.notifyBar({ cssClass: "success", html: success });
+                        $.notifyBar({ cssClass: "success", html: success_message });
                         }
                     });
                     event.preventDefault();
                 });
             }
-            AjaxProcessing('#blog_draft', '#blog_admin' + "blogDraftBtn", '/admin/blog', "An error occured, your form is not saved.", "Your form is saved.");
-
+            //send admin blog data to server as draft
+            AjaxProcessing('#blog_draft', '#blog_admin', '/admin/blog', "blogDraftBtn", "Your blog is saved.", "An error occurred, your blog is not saved.");
             //send admin blog data to server to publish
-            $('#blog_publish').on('click', function(event) {
-                $.ajax({
-                    data : $('#blog_admin').serialize() + "&blogPublishedBtn=",
-                    type : 'POST',
-                    url : '/admin/blog',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
-                });
-                event.preventDefault();
-            });
-
+            AjaxProcessing('#blog_publish', '#blog_admin', '/admin/blog', "blogPublishedBtn", "Your blog is published.", "An error occurred, your blog is not published.");
             //send admin tutorial data to server as draft
-        	$('#tutorial_draft').on('click', function(event) {
-                $.ajax({
-                    data : $('#tutorial_admin').serialize() + "&tutorialDraftBtn=",
-                    type : 'POST',
-                    url : '/admin/tutorial',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
-                });
-                event.preventDefault();
-            });
+            AjaxProcessing('#tutorial_draft', '#tutorial_admin', '/admin/tutorial', "tutorialDraftBtn", "Your tutorial is saved.", "An error occurred, your tutorial is not saved.");
             //send admin tutorial data to server to publish
-            $('#tutorial_publish').on('click', function(event) {
-                $.ajax({
-                    data : $('#tutorial_admin').serialize() + "&tutorialPublishedBtn=",
-                    type : 'POST',
-                    url : '/admin/tutorial',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
-                });
-                event.preventDefault();
-            });
-
+            AjaxProcessing('#tutorial_publish', '#tutorial_admin', '/admin/tutorial', "tutorialPublishedBtn", "Your tutorial is published.", "An error occurred, your tutorial is not published.");
             //send admin project data to server as draft
-        	$('#project_draft').on('click', function(event) {
-                $.ajax({
-                    data : $('#project_admin').serialize() + "&projectDraftBtn=",
-                    type : 'POST',
-                    url : '/admin/project',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
-                });
-                event.preventDefault();
-            });
+            AjaxProcessing('#project_draft', '#project_admin', '/admin/project', "projectDraftBtn", "Your project is saved.", "An error occurred, your project is not saved.");
             //send admin project data to server to publish
-            $('#project_publish').on('click', function(event) {
-                $.ajax({
-                    data : $('#project_admin').serialize() + "&projectPublishedBtn=",
-                    type : 'POST',
-                    url : '/admin/project',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
-                });
-                event.preventDefault();
-            });
-
-            //send changed settings data to server
-        	$('#settings').on('click', function(event) {
-                $.ajax({
-                    data : $('#settings_admin').serialize() + "&settingsDraftBtn=",
-                    type : 'POST',
-                    url : '/admin/settings',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
-                });
-                event.preventDefault();
-            });
-            $('#media_upload_admin_btn').on('click', function(event) {
-                $.ajax({
-                    data : $('#media_upload_admin').serialize() + "&media_upload_admin_btn=",
-                    type : 'POST',
-                    url : '/admin/upload',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "Media upload failed" });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Media upload succeeded." });
-                    }
-                });
-                event.preventDefault();
-            });
+            AjaxProcessing('#project_publish', '#project_admin', '/admin/project', "projectPublishedBtn", "Your project is published.", "An error occurred, your project is not published.");
+            //send admin setting changes to server
+            AjaxProcessing('#settings', '#settings_admin', '/admin/settings', "settingsSaveBtn", "Your settings are updated.", "An error occurred, your settings are not updated.");
+            //send admin uploads to server
+            AjaxProcessing('#media_upload_admin_btn', '#media_upload_admin', '/admin/upload', "media_upload_admin_btn", "Media upload succeeded.", "Media upload failed");
         });
         </script>
     </body>
