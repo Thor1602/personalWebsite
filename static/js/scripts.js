@@ -109,53 +109,38 @@ function removeParagraphToProject() {
   }
 }
 
-
-
 //function to display the files that are selected in a form
-function myFunction(){
-  var x = document.getElementById("blogFile");
-  var txt = "";
-  var num = 0;
-  if ('files' in x) {
-    if (x.files.length == 0) {
-      txt = "Select one or more files.";
-    }
-    else {
-      for (var i = 0; i < x.files.length; i++) {
-        txt += "<br><strong>" + (i+1) + ". file</strong><br>";
-        var file = x.files[i];
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
 
-        if ('name' in file) {
-          txt += "name: " + file.name + "<br>";
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
         }
 
-        if ('size' in file){
-          if (((Math.round(file.size / (1024)*100))/100) > 1) {
-            txt += "size: " + ((Math.round(file.size / (1024*1024)*100))/100) + " <strong>mb</strong> <br>";
-          }
-          else {
-            txt += "size: " + ((Math.round(file.size / (1024)*100))/100) + " <strong>kb</strong> <br>";
-          }
-        }
-      }
-    }
-  }
-  else {
-    if (x.value == "") {
-      txt += "Select one or more files.";
-    } else {
-      txt += "The files property is not supported by your browser!";
-      txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
-    }
-  }
-  document.getElementsByClassName("fileInfo").innerHTML = txt;
-}
-    //$("#common").click(function () {
-    //$.notifyBar();
-    //});
-    //$("#error").click(function () {
-    //$.notifyBar({ cssClass: "error", html: "Error occurred!" });
-    //});
+    };
+
+    $('#files').on('change', function() {
+        imagesPreview(this, 'div.gallery');
+    });
+});
+
+
+//$("#common").click(function () {
+//$.notifyBar();
+//});
+//$("#error").click(function () {
+//$.notifyBar({ cssClass: "error", html: "Error occurred!" });
+//});
 
 //Send admin_blog_form through AJAX
 

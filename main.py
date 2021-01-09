@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, url_for, render_template, request, redirect, session, flash, jsonify
+from flask import Flask, url_for, render_template, request, redirect, session, flash
 import dbHelper
 import os
 from werkzeug.utils import secure_filename
-from flask_helper import *
+#from flask_helper import *
 import json
 
 UPLOAD_FOLDER = 'static/assets/img/user_pictures/'
@@ -16,52 +16,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.before_request
 def make_session_permanent():
     session.permanent = True
-
-@app.route('/admin/blog', methods=['GET', 'POST'])
-def adminblog():
-    if request.method == 'POST':
-        print(request.form)
-        # err_files = []
-        # filename = ''
-        # # check if the post request has the file part
-        # if 'blogFile' not in request.files:
-        #     flash('No file part')
-        #     return redirect(request.url)
-        # files = request.files.getlist('blogFile')
-        # # if user does not select file, browser also
-        # # submit an empty part without filename
-        # for file in files:
-        #     # if file.filename == '':
-        #     #     flash('No selected file')
-        #     #     return redirect(request.url)
-        #     if file and allowed_file(file.filename):
-        #         filename = secure_filename(file.filename)
-        #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], "blog_upload_" + filename))
-        #     else:
-        #         err_files.append(file.filename)
-        # print(request.form)
-    #result = ajax_form_to_dict(request.args.get('admin_blog'))
-    print(request.files.getlist('blogFile'))
-    return json.dumps({'the Moron key': 'the Moron value'})
-
-@app.route('/admin/tutorial', methods=['GET', 'POST'])
-def admintutorial():
-    if request.method == 'POST':
-        print(request.form)
-    return ""
-
-@app.route('/admin/project', methods=['GET', 'POST'])
-def adminproject():
-    if request.method == 'POST':
-        print(request.form)
-    return ""
-
-@app.route('/admin/settings', methods=['GET', 'POST'])
-def adminsettings():
-    if request.method == 'POST':
-        print(request.form)
-    return ""
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     err = ''
@@ -89,36 +43,6 @@ def tutorials():
     err = ''
     success = ''
     return render_template("tutorials.html")
-
-@app.route("/admin", methods=['GET', 'POST'])
-def admin():
-    err = ''
-    success = ''
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    else:
-        if request.method == 'POST':
-            print(request.form)
-            err_files = []
-            filename = ''
-            # check if the post request has the file part
-            if 'blogFile' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
-            files = request.files.getlist('blogFile')
-            # if user does not select file, browser also
-            # submit an empty part without filename
-            for file in files:
-                # if file.filename == '':
-                #     flash('No selected file')
-                #     return redirect(request.url)
-                if file and allowed_file(file.filename):
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], "blog_upload_" + filename))
-                else:
-                    err_files.append(file.filename)
-            return render_template("admin.html", filename=filename, err_files=err_files)
-        return render_template("admin.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -172,6 +96,124 @@ def page_gone(e):
 @app.errorhandler(500)
 def internal_error(e):
     return render_template('404.html', err=e), 500
+
+@app.route("/admin", methods=['GET', 'POST'])
+def admin():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+            err_files = []
+            filename = ''
+            # check if the post request has the file part
+            if 'blogFile' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            files = request.files.getlist('blogFile')
+            # if user does not select file, browser also
+            # submit an empty part without filename
+            for file in files:
+                # if file.filename == '':
+                #     flash('No selected file')
+                #     return redirect(request.url)
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], "blog_upload_" + filename))
+                else:
+                    err_files.append(file.filename)
+            return render_template("admin.html", filename=filename, err_files=err_files)
+        return render_template("admin.html")
+
+@app.route('/admin/blog', methods=['GET', 'POST'])
+def adminblog():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return json.dumps({'the Moron key': 'the Moron value'})
+
+@app.route('/admin/all_blogs', methods=['GET', 'POST'])
+def all_blogs():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return ""
+
+@app.route('/admin/tutorial', methods=['GET', 'POST'])
+def admintutorial():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return ""
+
+@app.route('/admin/all_tutorials', methods=['GET', 'POST'])
+def all_tutorials():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return ""
+
+@app.route('/admin/project', methods=['GET', 'POST'])
+def adminproject():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return ""
+
+@app.route('/admin/all_projects', methods=['GET', 'POST'])
+def all_projects():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return ""
+
+@app.route('/admin/settings', methods=['GET', 'POST'])
+def adminsettings():
+    err = ''
+    success = ''
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            print(request.form)
+        return ""
+
+@app.route('/admin/upload', methods=['GET', 'POST'])
+def upload():
+    err = 'Error occured: upload failed'
+    success = 'Files are uploaded successfully'
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        print(request.files.getlist('files'))
+        print(request.form)
+        return redirect(url_for('admin', success=success, error=err))
 
 if __name__ == "__main__":
     app.secret_key = "HopKIdf78/*9*PO72xQ89Fg??"

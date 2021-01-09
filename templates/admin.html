@@ -437,15 +437,13 @@
                                     </div>
                                     <form name="media_upload_admin" id="media_upload_admin" enctype="multipart/form-data">
                                           <div class="custom-file mt-3 mb-3">
-                                            <input type="file" name="blogFile" id="blogFile" multiple size="50" onchange="myFunction()">
-    <!--                                        <input type="file" class="custom-file-input" name="blogFile" id="blogFiles" multiple size="50" onchange="myFunction()">-->
-                                            <label class="custom-file-label" for="blogFile">Choose file...</label>
-                                            <div class="invalid-feedback">Invalid file</div>
-                                        </div>
-                                        <p class="fileInfo"></p>
+                                            <input type="file" name="files" id="files" multiple size="50">
+                                            <label class="custom-file-label" for="files">Choose file...</label>
+                                          </div>
+                                        <div class="gallery"></div>
                                         <div class="form-group">
                                             <button hidden type="button"></button>
-                                            <button class="btn btn-primary btn-lg" type="submit" name="media_upload_admin_btn" id="media_upload_admin_btn" data-backdrop="static">UPLOAD</button>
+                                            <button class="btn btn-primary btn-lg" type="button" name="media_upload_admin_btn" id="media_upload_admin_btn" data-backdrop="static">UPLOAD</button>
                                         </div>
                                     </form>
                                     <div class="form-group">
@@ -484,22 +482,26 @@
         //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         $(document).ready(function(){
             //send admin blog data to server as draft
-        	$('#blog_draft').on('click', function(event) {
-                $.ajax({
-                    data : $('#blog_admin').serialize() + "&blogDraftBtn=",
-                    type : 'POST',
-                    url : '/admin/blog',
-                })
-                .done(function(data) {
-                    if (data.error) {
-                    $.notifyBar({ cssClass: "error", html: "An error occured, your form is not saved." });
-                    }
-                    else {
-                    $.notifyBar({ cssClass: "success", html: "Your form is saved." });
-                    }
+            function AjaxProcessing(eventBtn, data, eventBtnData, url, error, success) {
+                $(eventBtn).on('click', function(event) {
+                    $.ajax({
+                        data : $(data).serialize() + "&" + eventBtnData + "=",
+                        type : 'POST',
+                        url : url,
+                    })
+                    .done(function(data) {
+                        if (data.error) {
+                        $.notifyBar({ cssClass: "error", html: error });
+                        }
+                        else {
+                        $.notifyBar({ cssClass: "success", html: success });
+                        }
+                    });
+                    event.preventDefault();
                 });
-                event.preventDefault();
-            });
+            }
+            AjaxProcessing('#blog_draft', '#blog_admin' + "blogDraftBtn", '/admin/blog', "An error occured, your form is not saved.", "Your form is saved.");
+
             //send admin blog data to server to publish
             $('#blog_publish').on('click', function(event) {
                 $.ajax({
@@ -601,6 +603,22 @@
                     }
                     else {
                     $.notifyBar({ cssClass: "success", html: "Your form is saved." });
+                    }
+                });
+                event.preventDefault();
+            });
+            $('#media_upload_admin_btn').on('click', function(event) {
+                $.ajax({
+                    data : $('#media_upload_admin').serialize() + "&media_upload_admin_btn=",
+                    type : 'POST',
+                    url : '/admin/upload',
+                })
+                .done(function(data) {
+                    if (data.error) {
+                    $.notifyBar({ cssClass: "error", html: "Media upload failed" });
+                    }
+                    else {
+                    $.notifyBar({ cssClass: "success", html: "Media upload succeeded." });
                     }
                 });
                 event.preventDefault();
